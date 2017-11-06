@@ -13,7 +13,7 @@ client.repeat = 1
 previous = ''
 data = ''
 #IP = 'localhost'
-IP = '127.0.0.1'
+IP = 'NucYou'
 port = 6600
 playPause = True
 
