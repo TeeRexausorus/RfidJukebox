@@ -101,22 +101,22 @@ def findPlaylist(playlist):
 
 if __name__ == '__main__':
     #time.sleep(60)
-    if launchMopidy() == "go":
-        print "mopidy launched"
+    #if launchMopidy() == "go":
+    #    print "mopidy launched"
     connect()
     with open('tags.json') as file:
         data = json.load(file)
     locations=['/dev/ttyUSB0','/dev/ttyUSB1', '/dev/cu.usbmodem14221' , '/dev/cu.usbmodem1411', '/dev/ttyACM0','/dev/ttyACM1']
-    while True:
-        for device in locations:
-            try:
-                print "Trying...",device
-                arduino = serial.Serial(device, 9600)
-                break
-            except:
-                print('Failed to connect to device')
+    arduino = None
+    for device in locations:
+        try:
+            print "Trying...",device
+            arduino = serial.Serial(device, 9600)
+            break
+        except:
+            print('Failed to connect to device')
+    if arduino != None:
         print('connected')
-    
         while True:
             id = arduino.readline().strip()
             print(id)
@@ -128,11 +128,11 @@ if __name__ == '__main__':
                     launch(playlist)
                 else:
                     if id == '560010571706':
-                        nex()
+                         nex()
                     if id == '560010573021':
                         prev()
                     if id == '560010571C0D' or id == '560010571100':
                         playpause()
             t = Timer(1, timeout)
             t.start()
-    arduino.close()
+        arduino.close() 
